@@ -40,5 +40,6 @@ class TodoController extends Controller
         ]);
 
         return redirect()->route('todo.index')->with('success', 'Todo created successfully!');
+
     }
 }

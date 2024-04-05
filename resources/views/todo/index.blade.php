@@ -12,7 +12,7 @@
                     <div class="flex items-center justify-between">
 
                         <div>
-                            <x-create-button href="{{ route('task.create') }}"></x-create-button>
+                            <x-create-button href="{{ route('todo.create') }}"></x-create-button>
                         </div>
 
                         <div>
