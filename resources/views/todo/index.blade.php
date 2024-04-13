@@ -116,7 +116,7 @@
                 </div>
                 @if ($todosCompleted > 1)
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
-                    <form action="{{ route(todo.deleteallcompleted) }}" method="POST">
+                    <form action="{{ route('todo.deleteallcompleted') }}" method="POST">
                         @csrf
                         @method('delete')
                         <x-primary-button>
