@@ -43,6 +43,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Title
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Category
+                                </th>
                                 <th scope="col" class="hidden px-6 py-3 md:block">
                                     Status
                                 </th>
@@ -60,6 +63,9 @@
                                     <a href="{{ route('todo.edit', $todo) }}" class="hover:underline">
                                         {{ $todo->title }}
                                     </a>
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $todo->category ? $todo->category->title : '' }}
                                 </td>
                                 <td class="hidden px-6 py-4 md:block">
                                     @if ($todo->is_complete == false)
@@ -84,7 +90,7 @@
                                             </button>
                                         </form>
                                         @else
-                                        <form action="{{ route('todo.uncompete', $todo) }}" method="POST">
+                                        <form action="{{ route('todo.uncomplete', $todo) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="text-blue-600 dark:text-blue-400">

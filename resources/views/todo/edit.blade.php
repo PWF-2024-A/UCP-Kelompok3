@@ -18,6 +18,21 @@
                                 :value="old('name', $todo->title)" required autofocus autocomplete="title" />
                             <x-input-error class="mt-2" :messages="$errors->get('title')" />
                         </div>
+
+                        <div class="mb-6">
+                            <x-input-label for="category" :value="__('Category')" />
+                            <x-select id="category" name="category" class="block w-full mt-1"
+                                :value="old('name', $todo->category)" required autofocus>
+                                <option value="">Pilih Kategori</option>
+                                <!-- Ambil data kategori dari database -->
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('category')" />
+                        </div>
+
+
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
                             <x-cancel-button href="{{ route('todo.index') }}"/>

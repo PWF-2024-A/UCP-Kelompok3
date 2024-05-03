@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
@@ -17,15 +18,18 @@ class TodoController extends Controller
 
             ->get();
 
+        $categories = Category::all();
         $todosCompleted = Todo::where('user_id', auth()->user()->id)
             ->where('is_complete', true)
             ->count();
 
-        return view('todo.index', compact('todos', 'todosCompleted'));
+        return view('todo.index', compact('todos', 'categories', 'todosCompleted'));
     }
 
     public function create(){
-        return view('todo.create');
+        $categories = Category::where('user_id', auth()->user()->id)
+            ->get();
+        return view('todo.create', compact('categories'));
     }
 
     public function edit(Todo $todo){
@@ -46,6 +50,7 @@ class TodoController extends Controller
         $todo->update([
 
             'title'=> ucfirst($request->title),
+            'category_id' => $request->category_id
         ]);
 
         return redirect()->route('todo.index')->with('success', 'Todo updated successfully!');
@@ -79,10 +84,12 @@ class TodoController extends Controller
 
         $request->validate([
             'title' => 'required|max:255',
+            // 'category' => 'required'
         ]);
 
         $todo = Todo::create([
             'title' => ucfirst($request->title),
+            'category_id' => $request->category_id,
             'user_id' => auth()->user()->id,
         ]);
 
@@ -99,14 +106,14 @@ class TodoController extends Controller
         }
     }
 
-    public function destroyCompleted(){
-        $todosCompleted = Todo::where('user_id', auth()->user()->id)
-            ->where('is_complete', true)
-            ->get();
-        foreach ($todosCompleted as $todo){
-            $todo->delete();
-        }
-        return redirect()->route('todo.index')->with('success', 'All completed todos deleted successfully!');
-    }
+    // public function destroyCompleted(){
+    //     $todosCompleted = Todo::where('user_id', auth()->user()->id)
+    //         ->where('is_complete', true)
+    //         ->get();
+    //     foreach ($todosCompleted as $todo){
+    //         $todo->delete();
+    //     }
+    //     return redirect()->route('todo.index')->with('success', 'All completed todos deleted successfully!');
+    // }
 
 }
