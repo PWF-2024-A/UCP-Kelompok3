@@ -33,9 +33,10 @@ class TodoController extends Controller
     }
 
     public function edit(Todo $todo){
+        $categories = Category::all();
         if(auth()->user()->id == $todo->user_id){
 
-            return view('todo.edit', compact('todo'));
+            return view('todo.edit', compact('todo', 'categories'));
         }else{
 
             return redirect()->route('todo.index')->with('danger', 'You are not authorized to edit this todo!');
@@ -106,14 +107,14 @@ class TodoController extends Controller
         }
     }
 
-    // public function destroyCompleted(){
-    //     $todosCompleted = Todo::where('user_id', auth()->user()->id)
-    //         ->where('is_complete', true)
-    //         ->get();
-    //     foreach ($todosCompleted as $todo){
-    //         $todo->delete();
-    //     }
-    //     return redirect()->route('todo.index')->with('success', 'All completed todos deleted successfully!');
-    // }
+    public function destroyCompleted(){
+        $todosCompleted = Todo::where('user_id', auth()->user()->id)
+            ->where('is_complete', true)
+            ->get();
+        foreach ($todosCompleted as $todo){
+            $todo->delete();
+        }
+        return redirect()->route('todo.index')->with('success', 'All completed todos deleted successfully!');
+    }
 
 }

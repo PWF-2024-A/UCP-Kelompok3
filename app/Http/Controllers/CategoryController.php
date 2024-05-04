@@ -38,7 +38,7 @@ class CategoryController extends Controller
     public function edit(Category $category){
         if(auth()->user()->id == $category->user_id){
 
-            return view('category.edit', compact('todo'));
+            return view('category.edit', compact('category'));
         }else{
 
             return redirect()->route('category.index')->with('danger', 'You are not authorized to edit this todo!');

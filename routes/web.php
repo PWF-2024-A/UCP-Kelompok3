@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/todo/{todo}/edit', [TodoController::class, 'edit'])->name('todo.edit');
     Route::patch('/todo/{todo}', [TodoController::class, 'update'])->name('todo.update');
     Route::patch('/todo/{todo}/complete', [TodoController::class, 'complete'])->name('todo.complete');
-    Route::patch('/todo/{todo}/incomplete', [TodoController::class, 'uncomplete'])->name('todo.uncompete');
+    Route::patch('/todo/{todo}/incomplete', [TodoController::class, 'uncomplete'])->name('todo.uncomplete');
     Route::delete('/todo/{todo}', [TodoController::class, 'destroy'])->name('todo.destroy');
     Route::delete('/todo', [TodoController::class, 'destroyCompleted'])->name('todo.deleteallcompleted');
 
